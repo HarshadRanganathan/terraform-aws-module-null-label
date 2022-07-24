@@ -1,7 +1,7 @@
 locals {
 
   defaults = {
-    label_order         = ["namespace", "environment", "stage", "repo_url", "owner", "name", "attributes"]
+    label_order         = ["namespace", "environment", "stage", "region", "repo_url", "owner", "name", "attributes"]
     regex_replace_chars = "/[^-a-zA-Z0-9]/"
     delimiter           = "-"
     replacement         = ""
@@ -25,6 +25,7 @@ locals {
     namespace   = var.namespace == null ? var.context.namespace : var.namespace
     environment = var.environment == null ? var.context.environment : var.environment
     stage       = var.stage == null ? var.context.stage : var.stage
+    region      = var.region == null ? var.context.region : var.region
     name        = var.name == null ? var.context.name : var.name
     delimiter   = var.delimiter == null ? var.context.delimiter : var.delimiter
     repo_url    = var.repo_url == null ? var.context.repo_url : var.repo_url
@@ -49,6 +50,7 @@ locals {
   repo_url        = lower(replace(coalesce(local.input.repo_url, local.sentinel), local.regex_replace_chars, local.replacement))
   owner           = lower(replace(coalesce(local.input.owner, local.sentinel), local.regex_replace_chars, local.replacement))
   stage           = lower(replace(coalesce(local.input.stage, local.sentinel), local.regex_replace_chars, local.replacement))
+  region          = lower(replace(coalesce(local.input.region, local.sentinel), local.regex_replace_chars, local.replacement))  
   delimiter       = local.input.delimiter == null ? local.defaults.delimiter : local.input.delimiter
   label_order     = local.input.label_order == null ? local.defaults.label_order : coalescelist(local.input.label_order, local.defaults.label_order)
   id_length_limit = local.input.id_length_limit == null ? local.defaults.id_length_limit : local.input.id_length_limit
@@ -75,6 +77,7 @@ locals {
     namespace   = local.namespace
     environment = local.environment
     stage       = local.stage
+    region      = local.region
     repo_url    = local.repo_url
     owner       = local.owner
     attributes  = local.id_context.attributes
@@ -87,6 +90,7 @@ locals {
     namespace   = local.namespace
     environment = local.environment
     stage       = local.stage
+    region      = local.region
     repo_url    = local.repo_url
     owner       = local.owner
     attributes  = lower(replace(join(local.delimiter, local.attributes), local.regex_replace_chars, local.replacement))
@@ -114,6 +118,7 @@ locals {
     namespace           = local.namespace
     environment         = local.environment
     stage               = local.stage
+    region              = local.region
     repo_url            = local.repo_url
     owner               = local.owner
     delimiter           = local.delimiter

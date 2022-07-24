@@ -4,6 +4,7 @@ variable "context" {
     namespace           = string
     environment         = string
     stage               = string
+    region              = string
     owner               = string
     repo_url            = string
     name                = string
@@ -20,6 +21,7 @@ variable "context" {
     namespace           = null
     environment         = null
     stage               = null
+    region              = null
     name                = null
     owner               = null
     repo_url            = null
@@ -114,7 +116,7 @@ variable "label_order" {
   default     = null
   description = <<-EOT
     The naming order of the id output and Name tag.
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].
+    Defaults to ["namespace", "environment", "stage", "region", "name", "attributes"].
     You can omit any of the 5 elements, but at least one must be present.
   EOT
 }
@@ -137,4 +139,10 @@ variable "id_length_limit" {
     Set to `null` for default, which is `0`.
     Does not affect `id_full`.
   EOT
+}
+
+variable "region" {
+  type        = string
+  description = "AWS Region"
+  default = ""  
 }

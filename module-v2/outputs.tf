@@ -33,6 +33,11 @@ output "stage" {
   description = "Normalized stage"
 }
 
+output "region" {
+  value       = local.enabled ? local.region : ""
+  description = "Normalized region"
+}
+
 output "delimiter" {
   value       = local.enabled ? local.delimiter : ""
   description = "Delimiter between `namespace`, `environment`, `stage`, `name` and `attributes`"
